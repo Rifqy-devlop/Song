@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sirih Kasi - Lirik</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at top, #1a0000, #000);
+    font-family: 'Courier New', monospace;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .container {
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+  }
+
+  h1 {
+    margin-bottom: 10px;
+    color: #ff7a7a;
+    text-shadow: 0 0 15px #ff3b3b;
+  }
+
+  #lyric {
+    font-size: 18px;
+    min-height: 60px;
+    margin-top: 20px;
+    color: #fff;
+    text-shadow: 0 0 8px #ff4d4d;
+    animation: glow 1.5s infinite alternate;
+  }
+
+  @keyframes glow {
+    from { text-shadow: 0 0 6px #ff4d4d; }
+    to   { text-shadow: 0 0 14px #ff9a9a; }
+  }
+
+  audio {
+    width: 100%;
+    margin-top: 25px;
+  }
+
+  .halu {
+    margin-top: 20px;
+    font-size: 12px;
+    opacity: 0.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Sirih Kasi</h1>
+
+  <div id="lyric"></div>
+
+  <div class="halu">HTML BY RIFQY</div>
+  <!-- GANTI file audio di sini -->
+  <audio id="audio" controls>
+    <source src="sirih-kasi.mp3" type="audio/mpeg">
+    Browser kamu tidak mendukung audio.
+  </audio>
+
+</div>
+
+<script>
+const lyrics = [
+  { text: "Memang aku akui", time: 0 },
+  { text: "Akulah yang bersalah", time: 2 },
+  { text: "Telah memberi hati", time: 4 },
+  { text: "Walau sekerat rasa", time: 6 },
+
+  { text: "Maafkan aku", time: 8 },
+  { text: "Atas khilafku", time: 10 },
+  { text: "Permainkan hatimu...", time: 12 },
+
+  { text: "Mengapa kau dan aku bersua", time: 16 },
+  { text: "Menyatu dalam alunan nada", time: 20 },
+  { text: "Takdir mu, takdir ku", time: 25 },
+  { text: "Akhirnya berpisah...", time: 29 }
+];
+
+const lyricEl = document.getElementById("lyric");
+const audio = document.getElementById("audio");
+
+let current = -1;
+
+audio.addEventListener("timeupdate", () => {
+  const t = audio.currentTime;
+  if (current + 1 < lyrics.length && t >= lyrics[current + 1].time) {
+    current++;
+    typeText(lyrics[current].text);
+  }
+});
+
+function typeText(text) {
+  lyricEl.textContent = "";
+  let i = 0;
+  const typing = setInterval(() => {
+    lyricEl.textContent += text[i];
+    i++;
+    if (i >= text.length) clearInterval(typing);
+  }, 60);
+}
+</script>
+
+</body>
+</html>
